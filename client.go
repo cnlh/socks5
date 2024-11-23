@@ -3,6 +3,7 @@ package socks5
 import (
 	"errors"
 	"net"
+	"reflect"
 	"time"
 )
 
@@ -152,7 +153,7 @@ func (c *Client) Write(b []byte) (int, error) {
 }
 
 func (c *Client) Close() error {
-	if c.TCPConn != nil {
+	if c.TCPConn != nil && !reflect.ValueOf(c.TCPConn).IsNil() {
 		c.TCPConn.Close()
 	}
 	if c.UDPConn == nil {
